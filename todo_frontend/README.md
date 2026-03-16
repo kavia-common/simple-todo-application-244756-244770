@@ -1,82 +1,168 @@
-# Lightweight React Template for KAVIA
+# Todo Frontend – React Application
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A simple, modern, and responsive todo application built with React.  
+This project serves as the user interface for managing todo items, including creating, viewing, updating, deleting, and toggling their completed status, with persistence handled via the browser's localStorage.  
+
+## Table of Contents
+
+- [Features](#features)
+- [Architecture](#architecture)
+- [Setup & Getting Started](#setup--getting-started)
+- [Scripts](#scripts)
+- [Environment Variables](#environment-variables)
+- [UI & Theme](#ui--theme)
+- [Project Structure](#project-structure)
+- [Dependencies](#dependencies)
+- [Development Notes](#development-notes)
+- [License](#license)
+
+---
 
 ## Features
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- **Add Todos:** Create new todo items.
+- **View Todos:** See your list of todos at a glance.
+- **Toggle Complete:** Mark items as completed or active.
+- **Delete Todos:** Remove items from your list.
+- **Local Storage Persistence:** Todos are saved in the browser and persist between sessions.
+- **Responsive Design:** Usable on desktops, tablets, and mobile devices.
+- **Retro Theme Preference:** Users can toggle a retro (dark/light) theme.
+- **Minimal & Modern UI:** Simple, accessible, and clean interface.
+- _Optional:_ Basic filtering by status (all/active/completed) support can be added.
 
-## Getting Started
+---
 
-In the project directory, you can run:
+## Architecture
 
-### `npm start`
+This project uses a **monolithic frontend architecture**:
+- All logic (UI and state management) resides client-side within the React SPA.
+- Data persistence for todos is managed in `localStorage` – there is no backend database or external API.
+- The design emphasizes modular, reusable components and separation of UI and business logic.
+- The retro theming is provided via CSS custom properties, allowing toggling between light and dark modes at runtime.
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-### `npm test`
+## Setup & Getting Started
 
-Launches the test runner in interactive watch mode.
+### Prerequisites
 
-### `npm run build`
+- Node.js (>=14) and npm installed on your machine
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation
 
-## Customization
+1. Enter the frontend directory:
+   ```sh
+   cd todo_frontend
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the development server:
+   ```sh
+   npm start
+   ```
+4. Open your browser at [http://localhost:3000](http://localhost:3000) to view the app.
 
-### Colors
+---
 
-The main brand colors are defined as CSS variables in `src/App.css`:
+## Scripts
 
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
+- `npm start` - Runs the app in development mode.
+- `npm test` - Launches the test runner.
+- `npm run build` - Builds the app for production to the `build` folder.
+- `npm run eject` - Ejects configuration (not reversible, use with caution).
+
+---
+
+## Environment Variables
+
+The app includes a `.env` file with the following variables (though the current frontend is standalone):
+
+- `REACT_APP_API_BASE`
+- `REACT_APP_BACKEND_URL`
+- `REACT_APP_FRONTEND_URL`
+- `REACT_APP_WS_URL`
+- `REACT_APP_NODE_ENV`
+- `REACT_APP_NEXT_TELEMETRY_DISABLED`
+- `REACT_APP_ENABLE_SOURCE_MAPS`
+- `REACT_APP_PORT`
+- `REACT_APP_TRUST_PROXY`
+- `REACT_APP_LOG_LEVEL`
+- `REACT_APP_HEALTHCHECK_PATH`
+- `REACT_APP_FEATURE_FLAGS`
+- `REACT_APP_EXPERIMENTS_ENABLED`
+
+_Note:_ Most of these are not used unless integrating with an API. For purely local operation (with localStorage), these can be left as defaults.
+
+---
+
+## UI & Theme
+
+- **Retro Theme:** The application supports toggling between light and dark "retro" themes using a button at the top-right.
+- **Customization:** Colors and CSS variables can be changed in `src/App.css`.
+- **Responsiveness:** The layout adapts for mobile, tablet, and desktop.
+- **Fonts:** Uses a modern webfont for a clean appearance.
+
+---
+
+## Project Structure
+
+```
+todo_frontend/
+├── public/
+│   ├── favicon.ico
+│   ├── index.html
+│   └── manifest.json
+├── src/
+│   ├── App.js
+│   ├── App.css
+│   ├── index.js
+│   ├── index.css
+│   └── (other components)
+├── .env
+├── package.json
+├── README.md
+└── ...
 ```
 
-### Components
+- `src/App.js` – Main application component. Manages theme toggling and core UI.
+- `src/App.css` – Contains styles including theming and responsive design.
+- Components for todos (input, list, item, filters) would be placed in `src/` or a `components/` subfolder.
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+---
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+## Dependencies
 
-## Learn More
+Core dependencies:
+- [React](https://reactjs.org/) ^18.2.0
+- [react-dom](https://www.npmjs.com/package/react-dom)
+- [react-scripts](https://www.npmjs.com/package/react-scripts)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Dev dependencies:
+- [cross-env](https://www.npmjs.com/package/cross-env)
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Development Notes
 
-### Analyzing the Bundle Size
+- Built using React functional components and hooks (`useState`, `useEffect`), as recommended in React 17+.
+- State is managed in component state; todos are read/written to `localStorage`.
+- No backend, server API, or database is involved unless you expand the app.
+- Accessibility (a11y) and keyboard navigation are considered in UI design.
+- For advanced configuration, bundle analysis, and deployment, see the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+MIT License.
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Credits
 
-### Deployment
+Template and structure initially based on KAVIA starter React template.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
